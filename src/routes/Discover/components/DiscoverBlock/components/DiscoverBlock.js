@@ -14,13 +14,13 @@ function scrollContainer(id, { isNegative } = {}) {
 }
 
 export default function DiscoverBlock({ text, id, data, imagesKey = 'images' }) {
+  if (data.length === 0) return null;
+
   return (
     <div className="discover-block">
       <div className="discover-block__header">
         <h2>{text}</h2>
         <span />
-        {
-          data.length ? (
             <div className="animate__animated animate__fadeIn">
               <FontAwesomeIcon
                 icon={faChevronLeft}
@@ -31,8 +31,6 @@ export default function DiscoverBlock({ text, id, data, imagesKey = 'images' }) 
                 onClick={scrollContainer(id)}
               />
             </div>
-          ) : null
-        }
       </div>
       <div className="discover-block__row" id={id}>
         {data.map(({ [imagesKey]: images, name }) => (

@@ -20,23 +20,23 @@ export default class Discover extends Component {
   }
 
   async componentDidMount() {
-    try {
-      const [newReleases, playlists, categories] = await Promise.all([
-        getNewReleases(),
-        getPlaylists(),
-        getCategories(),
-      ]);
+    const data = await Promise.allSettled([
+      getNewReleases(),
+      getPlaylists(),
+      getCategories(),
+    ]);
 
-      this.setState({
-        newReleases: newReleases.albums.items,
-        playlists: playlists.playlists.items,
-        categories: categories.categories.items,
-      });
-    } catch (error) {
-      this.setState({ error: true });
-    } finally {
-      this.setState({ loading: false });
-    }
+    const [newReleases, playlists, categories] = data.map(
+      (response) => response?.value
+    );
+
+    this.setState({
+      newReleases: newReleases ? newReleases.albums.items : [],
+      playlists: playlists ? playlists.playlists.items : [],
+      categories: categories ? categories.categories.items : [],
+      loading: false,
+      error: !(newReleases || playlists || categories),
+    });
   }
 
   render() {
