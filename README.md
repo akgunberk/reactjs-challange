@@ -1,4 +1,5 @@
 # Buddywise Reactjs Coding Challenge [Spotify Music 🎧] &nbsp; 
+# You can find deployed version of the challenge from https://reactjs-challange.vercel.app/
   **Please read the details below for the implementation approach of this challange.**
  &nbsp; 
 
